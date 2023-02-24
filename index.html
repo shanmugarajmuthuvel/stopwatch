@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Stopwatch  </title>
+    <link rel="stylesheet" href="style.css">
+   </head>
+<body>
+  <div class="wrapper">
+    <div class="time">
+      <span class="hour">00</span>
+      <span class="colon">:</span>
+      <span class="minute">00</span>
+      <span class="colon">:</span>
+      <span class="second">00</span>
+      <span class="colon ms-colon">:</span>
+      <span class="millisecond">00</span>
+    </div>
+    <div class="buttons">
+      <button class="start">Start</button>
+      <button class="stop">Stop</button>
+      <button class="reset">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    var wrapper=document.querySelector(".wrapper")
+    var startbtn=document.querySelector(".start")
+	var stopbtn=document.querySelector(".stop")
+	var resetbtn=document.querySelector(".reset")
+	let hr=min=sec=ms=0
+	 let settimer;
+	startbtn.addEventListener("click",()=>{
+	    startbtn.classList.add("active")
+		startbtn.classList.remove("stopactive")
+		
+		settimer=setInterval(()=>{
+		    ms++;
+			ms<10 ? "0"+ms:ms
+			if(ms==100){
+			sec++;
+			sec <10 ? "0"+sec:sec
+			ms="0"+0
+			}
+			if(sec==60){
+			   min++
+			   sec<10 ? "0"+sec:sec
+			   sec="0"+0
+			   }
+			if(min==60){
+			    hr++
+				min <10 ? "0"+min:min
+				min="0"+0
+			}
+			putvalue()
+		},10)
+		
+		
+	})
+	stopbtn.addEventListener("click",()=>{
+	  startbtn.classList.remove("active")
+	  stopbtn.classList.add("stopactive")
+	  clearInterval(settimer)
+	})
+	resetbtn.addEventListener("click",()=>{
+	   startbtn.classList.remove("active")
+	   stopbtn.classList.remove("stopactive")
+	    clearInterval(settimer)
+		hr=min=sec=ms="0"+0
+		putvalue()
+	})
+	function putvalue(){
+	document.querySelector(".millisecond").innerText=ms
+	document.querySelector(".second").innerText=sec
+	document.querySelector(".minute").innerText=min
+	}
+	
+  </script>
+
+</body>
+</html>
